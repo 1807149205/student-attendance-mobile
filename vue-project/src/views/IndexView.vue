@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import router from '@/router'
 import { onMounted, reactive, ref } from 'vue'
-import { showToast, closeToast, showLoadingToast } from 'vant'
+import { showToast, closeToast, showLoadingToast,showFailToast } from 'vant'
 import HTTPClient from '../utils/HTTPClient'
 
 type AttendanceType = {
@@ -48,7 +48,16 @@ const form = reactive({
   attendanceId: ''
 })
 
+
 const submit = async () => {
+  if (!form.studentName) {
+    showFailToast('姓名不能为空');
+    return;
+  }
+  if (!form.studentNo) {
+    showFailToast('学号不能为空');
+    return;
+  }
   showLoadingToast({
     message: '加载中...',
     forbidClick: true
