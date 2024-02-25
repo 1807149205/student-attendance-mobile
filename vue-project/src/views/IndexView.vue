@@ -37,7 +37,7 @@ type AttendanceVO = {
   attendanceStatus: string
 }
 
-const httpURLPrefix = ref('http://123.60.35.77:8091')
+const httpURLPrefix = ref('/api')
 const attendanceId = ref('')
 const attendance = ref<AttendanceVO>()
 
