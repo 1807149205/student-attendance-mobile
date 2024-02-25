@@ -8,12 +8,14 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  proxy: {
-    '/api': {
-      target: 'http://www.server1.wzlweb.top:8091',
-      changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/api/, '')
-    }
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://www.server1.wzlweb.top:8091',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    },
   },
   resolve: {
     alias: {

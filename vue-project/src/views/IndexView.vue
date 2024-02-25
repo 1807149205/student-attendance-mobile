@@ -37,7 +37,6 @@ type AttendanceVO = {
   attendanceStatus: string
 }
 
-const httpURLPrefix = ref('/api')
 const attendanceId = ref('')
 const attendance = ref<AttendanceVO>()
 
@@ -65,7 +64,7 @@ const submit = async () => {
   form.timestamp = new Date().getTime() + ''
   form.attendanceId = attendanceId.value
   await HTTPClient.post(
-    `${httpURLPrefix.value}/startAttendance/studentAttendance`,
+    `/startAttendance/studentAttendance`,
     JSON.stringify(form)
   )
   closeToast()
@@ -74,7 +73,7 @@ const submit = async () => {
 
 const fetchAttendanceInfo = async () => {
   attendance.value = await HTTPClient.post(
-    `${httpURLPrefix.value}/attendance/getById?attendanceId=${attendanceId.value}`
+    `/attendance/getById?attendanceId=${attendanceId.value}`
   )
 }
 
