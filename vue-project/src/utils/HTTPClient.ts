@@ -51,4 +51,5 @@ class HTTPClient {
     }
 }
 
-export default new HTTPClient('http://127.0.0.1:8093');
+// export default new HTTPClient('http://127.0.0.1:8093');
+export default new HTTPClient('https://server1.wzlweb.top/api/sd/mobile');

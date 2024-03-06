@@ -3,6 +3,7 @@ import router from '@/router'
 import { onMounted, reactive, ref } from 'vue'
 import { showToast, closeToast, showLoadingToast,showFailToast } from 'vant'
 import HTTPClient from '../utils/HTTPClient'
+import {usePositionStore} from "@/stores/position";
 
 type AttendanceType = {
   id: string
@@ -37,6 +38,8 @@ type AttendanceVO = {
   attendanceStatus: string
 }
 
+const positionStore = usePositionStore();
+
 const attendanceId = ref('')
 const attendance = ref<AttendanceVO>()
 
@@ -44,7 +47,8 @@ const form = reactive({
   studentNo: '',
   studentName: '',
   timestamp: '',
-  attendanceId: ''
+  attendanceId: '',
+  attendanceAddress: ''
 })
 
 
@@ -63,8 +67,9 @@ const submit = async () => {
   })
   form.timestamp = new Date().getTime() + ''
   form.attendanceId = attendanceId.value
+  form.attendanceAddress = positionStore.address;
   await HTTPClient.post(
-    `/startAttendance/studentAttendance`,
+    `/mobile/studentAttendance/attendance`,
     JSON.stringify(form)
   )
   closeToast()
@@ -72,11 +77,10 @@ const submit = async () => {
 }
 
 const fetchAttendanceInfo = async () => {
-  const respData = await HTTPClient.post(
-    `/mobile/studentAttendance/getAttendanceById?attendanceId=${attendanceId.value}`
+  attendance.value = await HTTPClient.post(
+    `/mobile/studentAttendance/getAttendanceDetailById?attendanceId=${attendanceId.value}`
   );
-  console.log(respData);
-  
+  console.log(attendance.value);
   if (!attendance.value) {
     showFailToast('考勤id错误');
   }
