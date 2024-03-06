@@ -72,9 +72,14 @@ const submit = async () => {
 }
 
 const fetchAttendanceInfo = async () => {
-  attendance.value = await HTTPClient.post(
-    `/attendance/getById?attendanceId=${attendanceId.value}`
-  )
+  const respData = await HTTPClient.post(
+    `/mobile/studentAttendance/getAttendanceById?attendanceId=${attendanceId.value}`
+  );
+  console.log(respData);
+  
+  if (!attendance.value) {
+    showFailToast('考勤id错误');
+  }
 }
 
 onMounted(async () => {
