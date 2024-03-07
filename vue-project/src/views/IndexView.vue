@@ -69,7 +69,7 @@ const submit = async () => {
   form.attendanceId = attendanceId.value
   form.attendanceAddress = positionStore.address;
   await HTTPClient.post(
-    `/mobile/studentAttendance/attendance`,
+    `/startAttendance/startAttendance`,
     JSON.stringify(form)
   )
   closeToast()
@@ -77,8 +77,7 @@ const submit = async () => {
 }
 
 const fetchAttendanceInfo = async () => {
-  attendance.value = await HTTPClient.post(
-    `/mobile/studentAttendance/getAttendanceDetailById?attendanceId=${attendanceId.value}`
+  attendance.value = await HTTPClient.post(`/attendance/getById?attendanceId=${attendanceId.value}`
   );
   console.log(attendance.value);
   if (!attendance.value) {
